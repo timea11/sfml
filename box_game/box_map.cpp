@@ -26,8 +26,8 @@ Map::Map()
                 sf::RectangleShape tile;
                 tile.setSize(sf::Vector2f(tileSize, tileSize));
                 tile.setPosition(
-                    col* tileSize,
-                    row * tileSize
+                    {col* tileSize,
+                    row * tileSize}
                 );
 
                 tile.setFillColor(sf::Color::Green);

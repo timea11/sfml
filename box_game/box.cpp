@@ -2,7 +2,7 @@
 #include "box_map.h"
 
 Box::Box() :
-mWindow(sf::VideoMode(200,200),"EG800Q")
+mWindow(sf::VideoMode({200,200}),"EG800Q")
 ,movingLeft(false)
 ,movingRight(false)
 ,jump(false)
@@ -11,35 +11,35 @@ mWindow(sf::VideoMode(200,200),"EG800Q")
 ,zoom(false)
 
 {
-    mView.setSize(200.f,200.f);
+    mView.setSize({200,200});
     mView.setCenter(mPlayer.getPosition());
 
     mPlayer.setSize(sf::Vector2f(10,10));
-    mPlayer.setOrigin(mPlayer.getSize().x /2.f, mPlayer.getSize().y /2.f); //set center point of the player
-    mPlayer.setPosition(50.f, 150.f);
+    mPlayer.setOrigin({mPlayer.getSize().x /2, mPlayer.getSize().y /2}); //set center point of the player
+    mPlayer.setPosition({50, 150});
     mPlayer.setFillColor(sf::Color::Magenta);
 
     sf::RectangleShape platform1;
     platform1.setSize(sf::Vector2f(30,5));
-    platform1.setPosition(110.f, 130.f);
+    platform1.setPosition({110, 130});
     platform1.setFillColor(sf::Color::Cyan);
     mPlatforms.push_back(platform1);                                       //push_back - member function for std::vector
                                                                            //appends the given element to the end of the container
     sf::RectangleShape platform2;
     platform2.setSize(sf::Vector2f(25,5));
-    platform2.setPosition(30.f, 90.f);
+    platform2.setPosition({30, 90});
     platform2.setFillColor(sf::Color::Cyan);
     mPlatforms.push_back(platform2);
 
     sf::RectangleShape platform3;
     platform3.setSize(sf::Vector2f(20,5));
-    platform3.setPosition(75.f, 60.f);
+    platform3.setPosition({75, 60});
     platform3.setFillColor(sf::Color::Cyan);
     mPlatforms.push_back(platform3);
 
     sf::RectangleShape platform4;
     platform4.setSize(sf::Vector2f(20,5));
-    platform4.setPosition(400.f, 80.f);
+    platform4.setPosition({400, 80});
     platform4.setFillColor(sf::Color::Cyan);
     mPlatforms.push_back(platform4);
 }
@@ -56,50 +56,59 @@ void Box::run()
         render();
     }
 }
+
 void Box::processEvent()
 {
-    sf::Event event;                                    //event processing
-    while(mWindow.pollEvent(event))                     //infinite loop to capture events poll - pocahnuc
+    // pollEvent now returns std::optional<sf::Event>, loop continues while it has a value
+    while (const std::optional<sf::Event> event = mWindow.pollEvent())
     {
-       if(event.type == sf::Event::Closed)
-           mWindow.close();
+        // 1. Check for Window Closed
+        if (event->is<sf::Event::Closed>())
+        {
+            mWindow.close();
+        }
 
-       if(event.type == sf::Event::KeyPressed)
-       {
-           if(event.key.code == sf::Keyboard::A)        //if it is pressed keyboard arow left
-           {
-                movingLeft = true;                      //flag true for left
-           }
-           if(event.key.code == sf::Keyboard::D)        //if it is pressed keyboard arow right
-           {
-                movingRight = true;                     //flag true for right
-           }
-           if(event.key.code == sf::Keyboard::W && ground)
-           {
+        // 2. Check for Key Pressed and extract key data
+        if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
+        {
+            if (keyPressed->code == sf::Keyboard::Key::A)       // Scoped enum: Key::A
+            {
+                movingLeft = true;
+            }
+            if (keyPressed->code == sf::Keyboard::Key::D)       // Scoped enum: Key::D
+            {
+                movingRight = true;
+            }
+            if (keyPressed->code == sf::Keyboard::Key::W && ground)
+            {
                 jump = true;
-           }
-           if(event.key.code == sf::Keyboard::Z)
-           {
-               zoom = true;
-           }
-       }
-       if(event.type == sf::Event::KeyReleased)
-       {
-           if(event.key.code ==sf::Keyboard::A)
-           {
-               movingLeft = false;                      //flag false for left
-           }
-           if(event.key.code == sf::Keyboard::D)
-           {
-               movingRight = false;                     //flag false for right
-           }
-           if(event.key.code == sf::Keyboard::W)
-           {
-               jump = false;
-           }
-       }
+            }
+            if (keyPressed->code == sf::Keyboard::Key::Z)
+            {
+                zoom = true;
+            }
+        }
+
+        // 3. Check for Key Released and extract key data
+        if (const auto* keyReleased = event->getIf<sf::Event::KeyReleased>())
+        {
+            if (keyReleased->code == sf::Keyboard::Key::A)
+            {
+                movingLeft = false;
+            }
+            if (keyReleased->code == sf::Keyboard::Key::D)
+            {
+                movingRight = false;
+            }
+            if (keyReleased->code == sf::Keyboard::Key::W)
+            {
+                jump = false;
+            }
+        }
     }
 }
+
+
 void Box::update(sf::Time deltaTime)
 {
     const float PlayerSpeed = 100.f;
@@ -134,20 +143,20 @@ void Box::update(sf::Time deltaTime)
 
     if(mPlayer.getPosition().y >= groundY)
     {
-       mPlayer.setPosition(mPlayer.getPosition().x, groundY);
+       mPlayer.setPosition({mPlayer.getPosition().x, groundY});
        ground = true;
        velocityY = 0.f;
     }
 
     for(auto& tile : mMap.getTiles())                                            //for every item in vector mPlatform, give me reference called platform
     {                                                                           //intersect - presecati
-        if(mPlayer.getGlobalBounds().intersects(tile.getGlobalBounds()))    //if bounds of player and of the platform are intersects each other
+        if(mPlayer.getGlobalBounds().findIntersection(tile.getGlobalBounds()))    //if bounds of player and of the platform are intersects each other
         {
             if(velocityY > 0.f)                                                 //box in falling stage
             {
                 mPlayer.setPosition(                                            //set position to the current player state for x, and position of the plraform by y
-                    mPlayer.getPosition().x,
-                    tile.getPosition().y - mPlayer.getSize().y / 2.f        //but platform y is bottom line of the platform, thats why we have to substrac y 2.f
+                    {mPlayer.getPosition().x,
+                    tile.getPosition().y - mPlayer.getSize().y / 2}        //but platform y is bottom line of the platform, thats why we have to substrac y 2.f
                 );
 
                 velocityY = 0.f;                                                //velocity back to 0, because when it stop on platform, no velocity
