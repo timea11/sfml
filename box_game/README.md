@@ -1,7 +1,7 @@
 # Simple box game
 It is very much WIP and learning process at the same time.
 Current state:
-![](https://i.imgur.com/DvQk1OT.png)
+![](./media/game_preview.gif)
 
 
 ## Building 
