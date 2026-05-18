@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/System/Vector2.hpp>
 #include <vector>
 #include "box_map.h"
 
@@ -24,6 +25,8 @@ class Box
         bool jump;
         bool ground;
         float velocityY;
+        int m_jumpCounter = 2;
+        sf::Vector2f m_oldPosition;
 
         Map mMap;
 
