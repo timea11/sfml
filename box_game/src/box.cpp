@@ -79,7 +79,7 @@ void Box::processEvent()
             {
                 movingRight = true;
             }
-            if (keyPressed->code == sf::Keyboard::Key::W && ground)
+            if (keyPressed->code == sf::Keyboard::Key::W)
             {
                 jump = true;
             }
@@ -114,7 +114,7 @@ void Box::update(sf::Time deltaTime)
     const float PlayerSpeed = 100.f;
     const float jumpHeight = -200.f;
     const float gravity = 400.f;
-    const float groundY = 150.f;
+    const float groundY = 175.f;
 
     mView.setCenter(mPlayer.getPosition());
     sf::Vector2f movement(0.f,0.f);
@@ -130,24 +130,41 @@ void Box::update(sf::Time deltaTime)
 
     if(movingRight)
         movement.x += PlayerSpeed;
-
+    
     if(jump && ground)
     {
-        velocityY = jumpHeight;
+        jump = false;
         ground = false;
+
+        velocityY = jumpHeight;
+        m_oldPosition = mPlayer.getPosition();
+        m_jumpCounter--;
     }
+    else if (jump && m_jumpCounter == 1 && mPlayer.getPosition().y < (m_oldPosition.y)-20)
+    {
+        jump = false;
+        velocityY  = -200;
+        if (m_jumpCounter >= 1)
+        {
+            m_jumpCounter--;
+        }
+    }
+    
 
     velocityY += gravity * deltaTime.asSeconds();                  //apply gravity
     movement.y = velocityY;                                        //apply vertical velocity
     mPlayer.move(movement * deltaTime.asSeconds());
 
+    // update values when player hits the floor
     if(mPlayer.getPosition().y >= groundY)
     {
        mPlayer.setPosition({mPlayer.getPosition().x, groundY});
        ground = true;
+       m_jumpCounter = 2;
        velocityY = 0.f;
     }
 
+    // update values when player hit and top of the tile
     for(auto& tile : mMap.getTiles())                                            //for every item in vector mPlatform, give me reference called platform
     {                                                                           //intersect - presecati
         if(mPlayer.getGlobalBounds().findIntersection(tile.getGlobalBounds()))    //if bounds of player and of the platform are intersects each other
@@ -161,6 +178,7 @@ void Box::update(sf::Time deltaTime)
 
                 velocityY = 0.f;                                                //velocity back to 0, because when it stop on platform, no velocity
                 ground = true;
+		m_jumpCounter = 2;
             }
         }
     }
