@@ -1,0 +1,56 @@
+[
+  {
+    "file": "/home/bad63r/Documents/Playground/sfml/box_game/src/box_main.cpp",
+    "arguments": [
+      "/usr/bin/c++",
+      "-I/home/bad63r/Documents/Playground/sfml/box_game/inc",
+      "-MD",
+      "-MT",
+      "CMakeFiles/box-app.dir/src/box_main.cpp.o",
+      "-MF",
+      "CMakeFiles/box-app.dir/src/box_main.cpp.o.d",
+      "-o",
+      "CMakeFiles/box-app.dir/src/box_main.cpp.o",
+      "-c",
+      "/home/bad63r/Documents/Playground/sfml/box_game/src/box_main.cpp"
+    ],
+    "directory": "/home/bad63r/Documents/Playground/sfml/box_game/build",
+    "output": "CMakeFiles/box-app.dir/src/box_main.cpp.o"
+  },
+  {
+    "file": "/home/bad63r/Documents/Playground/sfml/box_game/src/box.cpp",
+    "arguments": [
+      "/usr/bin/c++",
+      "-I/home/bad63r/Documents/Playground/sfml/box_game/inc",
+      "-MD",
+      "-MT",
+      "CMakeFiles/box-app.dir/src/box.cpp.o",
+      "-MF",
+      "CMakeFiles/box-app.dir/src/box.cpp.o.d",
+      "-o",
+      "CMakeFiles/box-app.dir/src/box.cpp.o",
+      "-c",
+      "/home/bad63r/Documents/Playground/sfml/box_game/src/box.cpp"
+    ],
+    "directory": "/home/bad63r/Documents/Playground/sfml/box_game/build",
+    "output": "CMakeFiles/box-app.dir/src/box.cpp.o"
+  },
+  {
+    "file": "/home/bad63r/Documents/Playground/sfml/box_game/src/box_map.cpp",
+    "arguments": [
+      "/usr/bin/c++",
+      "-I/home/bad63r/Documents/Playground/sfml/box_game/inc",
+      "-MD",
+      "-MT",
+      "CMakeFiles/box-app.dir/src/box_map.cpp.o",
+      "-MF",
+      "CMakeFiles/box-app.dir/src/box_map.cpp.o.d",
+      "-o",
+      "CMakeFiles/box-app.dir/src/box_map.cpp.o",
+      "-c",
+      "/home/bad63r/Documents/Playground/sfml/box_game/src/box_map.cpp"
+    ],
+    "directory": "/home/bad63r/Documents/Playground/sfml/box_game/build",
+    "output": "CMakeFiles/box-app.dir/src/box_map.cpp.o"
+  }
+]
