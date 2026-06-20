@@ -28,6 +28,5 @@ class Box
         int m_jumpCounter = 2;
         sf::Vector2f m_oldPosition;
 
-        Map mMap;
-
+        BoxMap mMap;
 };

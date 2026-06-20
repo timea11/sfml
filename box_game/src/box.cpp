@@ -2,7 +2,7 @@
 #include "box_map.h"
 
 Box::Box() :
-mWindow(sf::VideoMode({200,200}),"EG800Q")
+mWindow(sf::VideoMode({200,200}),"Box Game")
 ,movingLeft(false)
 ,movingRight(false)
 ,jump(false)
@@ -14,31 +14,31 @@ mWindow(sf::VideoMode({200,200}),"EG800Q")
     mView.setSize({200,200});
     mView.setCenter(mPlayer.getPosition());
 
-    mPlayer.setSize(sf::Vector2f(10,10));
+    mPlayer.setSize({10,10});
     mPlayer.setOrigin({mPlayer.getSize().x /2, mPlayer.getSize().y /2}); //set center point of the player
     mPlayer.setPosition({50, 150});
     mPlayer.setFillColor(sf::Color::Magenta);
 
     sf::RectangleShape platform1;
-    platform1.setSize(sf::Vector2f(30,5));
+    platform1.setSize({30,5});
     platform1.setPosition({110, 130});
     platform1.setFillColor(sf::Color::Cyan);
     mPlatforms.push_back(platform1);                                       //push_back - member function for std::vector
                                                                            //appends the given element to the end of the container
     sf::RectangleShape platform2;
-    platform2.setSize(sf::Vector2f(25,5));
+    platform2.setSize({25,5});
     platform2.setPosition({30, 90});
     platform2.setFillColor(sf::Color::Cyan);
     mPlatforms.push_back(platform2);
 
     sf::RectangleShape platform3;
-    platform3.setSize(sf::Vector2f(20,5));
+    platform3.setSize({20,5});
     platform3.setPosition({75, 60});
     platform3.setFillColor(sf::Color::Cyan);
     mPlatforms.push_back(platform3);
 
     sf::RectangleShape platform4;
-    platform4.setSize(sf::Vector2f(20,5));
+    platform4.setSize({20,5});
     platform4.setPosition({400, 80});
     platform4.setFillColor(sf::Color::Cyan);
     mPlatforms.push_back(platform4);
@@ -194,10 +194,6 @@ void Box::render()
     // {
     //     mWindow.draw(platform);
     // }
-    for(auto& tile : mMap.getTiles())
-    {
-        mWindow.draw(tile);
-    }
     mMap.draw(mWindow);
     mWindow.display();
 
