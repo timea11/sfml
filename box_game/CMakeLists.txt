@@ -8,7 +8,7 @@ add_executable(box-app)
 
 target_include_directories(box-app PRIVATE inc)
 
-target_sources(box-app PRIVATE src/box_main.cpp src/box.cpp src/box_map.cpp)
+target_sources(box-app PRIVATE src/box_main.cpp src/box.cpp src/box_map.cpp src/tile_map.cpp)
 
 target_link_libraries(box-app PRIVATE sfml-graphics sfml-window sfml-system)
 
