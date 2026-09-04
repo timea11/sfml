@@ -1,0 +1,3 @@
+/home/bad63r/Documents/Playground/sfml/box_game/build/CMakeFiles/box-app.dir
+/home/bad63r/Documents/Playground/sfml/box_game/build/CMakeFiles/edit_cache.dir
+/home/bad63r/Documents/Playground/sfml/box_game/build/CMakeFiles/rebuild_cache.dir

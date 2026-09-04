@@ -125,6 +125,16 @@ void Box::processEvent()
     }
 }
 
+void Box::ViewSmoothTransitionToPlayer()
+{
+    auto viewCenter = mView.getCenter();
+    float lagFactor = 0.005;
+
+    viewCenter.y += (mPlayer.getPosition().y  - viewCenter.y) * lagFactor;
+    viewCenter.x += (mPlayer.getPosition().x  - viewCenter.x) * lagFactor;
+	
+    mView.setCenter(viewCenter);
+}
 
 std::vector<sf::RectangleShape> Box::update(sf::Time deltaTime)
 {
@@ -135,8 +145,8 @@ std::vector<sf::RectangleShape> Box::update(sf::Time deltaTime)
 
     std::vector<sf::RectangleShape> testVector;
     
+    ViewSmoothTransitionToPlayer();
 
-    mView.setCenter(mPlayer.getPosition());
     sf::Vector2f movement(0.f,0.f);
 
     if(zoom)

@@ -20,6 +20,7 @@ class Box
         sf::View mView;
         sf::RectangleShape mPlayer;
         std::vector<sf::RectangleShape> mPlatforms;
+	void ViewSmoothTransitionToPlayer();
 
         bool zoom;
         bool movingLeft;

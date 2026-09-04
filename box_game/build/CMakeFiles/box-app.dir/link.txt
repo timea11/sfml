@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/box-app.dir/link.d "CMakeFiles/box-app.dir/src/box_main.cpp.o" "CMakeFiles/box-app.dir/src/box.cpp.o" "CMakeFiles/box-app.dir/src/box_map.cpp.o" "CMakeFiles/box-app.dir/src/tile_map.cpp.o" -o box-app  -lsfml-graphics -lsfml-window -lsfml-system
