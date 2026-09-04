@@ -4,11 +4,11 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-class Map
+class BoxMap
 {
     public:
 
-        Map();
+        BoxMap();
         void draw(sf::RenderWindow& window);
         std::vector<sf::RectangleShape>& getTiles();
 

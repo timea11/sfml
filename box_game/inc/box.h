@@ -2,6 +2,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <vector>
 #include "box_map.h"
+#include "tile_map.hpp"
 
 class Box
 {
@@ -11,8 +12,9 @@ class Box
 
     private:
         void processEvent();
-        void update(sf::Time delatTime);
-        void render();
+	std::vector<sf::RectangleShape> update(sf::Time delatTime);
+	void render(std::vector<sf::RectangleShape>& testVector);
+	
     private:
         sf::RenderWindow mWindow;
         sf::View mView;
@@ -28,6 +30,7 @@ class Box
         int m_jumpCounter = 2;
         sf::Vector2f m_oldPosition;
 
-        Map mMap;
-
+        BoxMap mMap;
+	TileMap mMapLevel0;
+	
 };

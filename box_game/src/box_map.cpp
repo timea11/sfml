@@ -1,6 +1,6 @@
 #include "box_map.h"
 
-Map::Map()
+BoxMap::BoxMap()
 {
     int level[9][10] =
     {
@@ -37,7 +37,7 @@ Map::Map()
     }
 }
 
-void Map::draw(sf::RenderWindow& window)
+void BoxMap::draw(sf::RenderWindow& window)
 {
     for(auto& tile : mTiles)
     {
@@ -45,7 +45,7 @@ void Map::draw(sf::RenderWindow& window)
     }
 }
 
-std::vector<sf::RectangleShape>& Map::getTiles()
+std::vector<sf::RectangleShape>& BoxMap::getTiles()
 {
     return mTiles;
 }
